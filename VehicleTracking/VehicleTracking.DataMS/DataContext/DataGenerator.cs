@@ -21,18 +21,24 @@ namespace VehicleTracking.DataMS.DataContext
                     {
                         new Models.VehicleModel
                         {
+                            CustomerId = 1,
                             VehicleId = "YS2R4X20005399401",
-                            RegNr = "ABC123"
+                            RegNr = "ABC123",
+                            Status = "Connected"
                         },
                         new Models.VehicleModel
                         {
+                            CustomerId = 1,
                             VehicleId = "VLUR4X20009093588",
-                            RegNr = "DEF456"
+                            RegNr = "DEF456",
+                            Status = "Connected"
                         },
                         new Models.VehicleModel
                         {
+                            CustomerId = 1,
                             VehicleId = "VLUR4X20009048065",
-                            RegNr = "GHI789"
+                            RegNr = "GHI789",
+                            Status = "Connected"
                         },
                     }
                     },
@@ -45,13 +51,17 @@ namespace VehicleTracking.DataMS.DataContext
                     {
                         new Models.VehicleModel
                         {
+                            CustomerId = 2,
                             VehicleId = "YS2R4X20005388011",
-                            RegNr = "JKL012"
+                            RegNr = "JKL012",
+                            Status = "Connected"
                         },
                         new Models.VehicleModel
                         {
+                            CustomerId = 2,
                             VehicleId = "YS2R4X20005387949",
-                            RegNr = "MNO345"
+                            RegNr = "MNO345",
+                            Status = "Connected"
                         }
                     }
                     },
@@ -64,13 +74,17 @@ namespace VehicleTracking.DataMS.DataContext
                     {
                         new Models.VehicleModel
                         {
+                            CustomerId = 3,
                             VehicleId = "VLUR4X20009048066",
-                            RegNr = "PQR678"
+                            RegNr = "PQR678",
+                            Status = "Connected"
                         },
                         new Models.VehicleModel
                         {
+                            CustomerId = 3,
                             VehicleId = "YS2R4X20005387055",
-                            RegNr = "STU901"
+                            RegNr = "STU901",
+                            Status = "Connected"
                         }
                     }
                     });

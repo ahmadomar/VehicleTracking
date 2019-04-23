@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using VehicleTracking.StatusMS.Hubs;
 
 namespace VehicleTracking.StatusMS
 {
@@ -25,6 +26,7 @@ namespace VehicleTracking.StatusMS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -39,6 +41,11 @@ namespace VehicleTracking.StatusMS
             {
                 app.UseHsts();
             }
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<VehicleStatusHub>("/status");
+            });
 
             app.UseHttpsRedirection();
             app.UseMvc();

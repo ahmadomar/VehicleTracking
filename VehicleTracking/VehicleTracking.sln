@@ -11,21 +11,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MessageQueuer", "MessageQue
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Simulators", "Simulators", "{55AD0D80-1731-472C-AEB2-9B0506537745}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracking.StatusMS", "VehicleTracking.StatusMS\VehicleTracking.StatusMS.csproj", "{0D86A3CC-8C10-43AD-B8A9-E2D4E8CFAADB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracking.StatusMS", "VehicleTracking.StatusMS\VehicleTracking.StatusMS.csproj", "{0D86A3CC-8C10-43AD-B8A9-E2D4E8CFAADB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{C9ACC2A3-C0C7-4AD2-9352-020AE928D22A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracking.Web", "VehicleTracking.Web\VehicleTracking.Web.csproj", "{01AB61DC-7A4C-45BD-B55B-F61B3F4F3F00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracking.Web", "VehicleTracking.Web\VehicleTracking.Web.csproj", "{01AB61DC-7A4C-45BD-B55B-F61B3F4F3F00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracking.Simulator", "VehicleTracking.Simulator\VehicleTracking.Simulator.csproj", "{2A5353F7-F3E1-4135-A18C-D493F174F722}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracking.Simulator", "VehicleTracking.Simulator\VehicleTracking.Simulator.csproj", "{2A5353F7-F3E1-4135-A18C-D493F174F722}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracking.DataMS", "VehicleTracking.DataMS\VehicleTracking.DataMS.csproj", "{949688D2-BE82-4FD8-A267-10F583D0478B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracking.DataMS", "VehicleTracking.DataMS\VehicleTracking.DataMS.csproj", "{949688D2-BE82-4FD8-A267-10F583D0478B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{87112046-65B9-4964-BB22-7D02AD80D9EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracking.Common", "VehicleTracking.Common\VehicleTracking.Common.csproj", "{799D2FAA-B3F3-4622-9A25-F7F6E4992011}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracking.Common", "VehicleTracking.Common\VehicleTracking.Common.csproj", "{799D2FAA-B3F3-4622-9A25-F7F6E4992011}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracking.Models", "VehicleTracking.Models\VehicleTracking.Models.csproj", "{A7DC8C92-EA73-4A7F-8D13-CBBD4B2ED3BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracking.Models", "VehicleTracking.Models\VehicleTracking.Models.csproj", "{A7DC8C92-EA73-4A7F-8D13-CBBD4B2ED3BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracking.Common.MQ", "VehicleTracking.Common.MQ\VehicleTracking.Common.MQ.csproj", "{4D932570-D3A2-46EF-A0D8-B193A1C9CF2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{A7DC8C92-EA73-4A7F-8D13-CBBD4B2ED3BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7DC8C92-EA73-4A7F-8D13-CBBD4B2ED3BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7DC8C92-EA73-4A7F-8D13-CBBD4B2ED3BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D932570-D3A2-46EF-A0D8-B193A1C9CF2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D932570-D3A2-46EF-A0D8-B193A1C9CF2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D932570-D3A2-46EF-A0D8-B193A1C9CF2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D932570-D3A2-46EF-A0D8-B193A1C9CF2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 		{949688D2-BE82-4FD8-A267-10F583D0478B} = {33B41157-8F70-4C1B-9B46-E4BE48880479}
 		{799D2FAA-B3F3-4622-9A25-F7F6E4992011} = {7AE21723-CD2E-4969-B710-D0E0CFFD2821}
 		{A7DC8C92-EA73-4A7F-8D13-CBBD4B2ED3BF} = {7AE21723-CD2E-4969-B710-D0E0CFFD2821}
+		{4D932570-D3A2-46EF-A0D8-B193A1C9CF2C} = {D0A7E7AE-99D5-4325-9588-D3413EB808C0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8CBBEBA6-55FD-4C52-9702-037EB85928A4}

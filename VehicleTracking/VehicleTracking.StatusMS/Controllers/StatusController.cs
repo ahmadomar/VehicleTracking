@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using VehicleTracking.StatusMS.Hubs;
 
 namespace VehicleTracking.StatusMS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class StatusController : ControllerBase
     {
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task< ActionResult<IEnumerable<string>>> Get()
         {
+            await new VehicleStatusHub().GetStatus("Please check status of the LDAP!");
             return new string[] { "value1", "value2" };
         }
 
