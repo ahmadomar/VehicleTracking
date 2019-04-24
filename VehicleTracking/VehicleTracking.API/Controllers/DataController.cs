@@ -6,21 +6,21 @@ using VehicleTracking.Common.MQ.Commands;
 namespace VehicleTracking.API.Controllers
 {
     [Route("[controller]")]
-    public class StatusController : Controller
+    public class DataController : Controller
     {
         private readonly IBusClient _busClient;
-        public StatusController(IBusClient busClient)
+        public DataController(IBusClient busClient)
         {
             _busClient = busClient;
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] StatusChangeCommand command)
+        public async Task<IActionResult> Post([FromBody] UpdateVehicleCommand command)
         {
             await _busClient.PublishAsync(command);
 
-            return Accepted($"status/{command.VehicleNumber}");
+            return Accepted($"data/{command.VehicleNumber}");
         }
     }
 }

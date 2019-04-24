@@ -9,7 +9,7 @@ namespace VehicleTracking.StatusMS
         {
             ServiceHost.Create<Startup>(args)
                 .UseRabbitMq()
-                .SubscribeToCommand<StatusChange>()
+                .SubscribeToCommand<StatusChangeCommand>()
                 .Build()
                 .Run();
         }

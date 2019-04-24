@@ -1,6 +1,6 @@
 ﻿namespace VehicleTracking.Common.MQ.Commands
 {
-    public class UpdateVehicle : ICommand
+    public class UpdateVehicleCommand : ICommand
     {
         public string VehicleNumber { get; set; }
         public string Status { get; set; }

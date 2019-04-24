@@ -1,15 +1,15 @@
 ﻿namespace VehicleTracking.Common.MQ.Events
 {
-    public class VehicleUpdatedEvent : IEvent
+    public class UpdateVehicleEvent : IEvent
     {
         public string VehicleNumber { get; }
 
-        protected VehicleUpdatedEvent()
+        protected UpdateVehicleEvent()
         {
 
         }
 
-        public VehicleUpdatedEvent(string vehicleNumber)
+        public UpdateVehicleEvent(string vehicleNumber)
         {
             VehicleNumber = vehicleNumber;
         }

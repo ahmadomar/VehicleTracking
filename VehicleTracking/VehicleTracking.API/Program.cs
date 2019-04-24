@@ -10,6 +10,7 @@ namespace VehicleTracking.API
             ServiceHost.Create<Startup>(args)
                 .UseRabbitMq()
                 .SubscribeToEvent<StatusChangedEvent>()
+                .SubscribeToEvent<UpdateVehicleEvent>()
                 .Build()
                 .Run();
         }

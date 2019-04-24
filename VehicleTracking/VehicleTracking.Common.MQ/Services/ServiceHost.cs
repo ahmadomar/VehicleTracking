@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RawRabbit;
 using System;
+using System.Threading.Tasks;
 using VehicleTracking.Common.MQ.Commands;
 using VehicleTracking.Common.MQ.Events;
 using VehicleTracking.Common.MQ.RabbitMq;
@@ -82,12 +83,6 @@ namespace VehicleTracking.Common.MQ.Services
                     var handler = (ICommandHandler<TCommand>)scope.ServiceProvider.GetRequiredService(typeof(ICommandHandler<TCommand>));
                     _bus.WithCommandHandlerAsync(handler);
                 }
-
-                //var handler = (ICommandHandler<TCommand>)_webHost.Services
-                //    .GetService(typeof(ICommandHandler<TCommand>));
-
-                //_bus.WithCommandHandlerAsync(handler);
-                
                 return this;
             }
 
@@ -100,12 +95,7 @@ namespace VehicleTracking.Common.MQ.Services
 
                     _bus.WithEventHandlerAsync(handler);
                 }
-
-                //var handler = (IEventHandler<TEvent>)_webHost.Services
-                //    .GetService(typeof(IEventHandler<TEvent>));
-
-                //_bus.WithEventHandlerAsync(handler);
-
+                
                 return this;
             }
 

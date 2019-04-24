@@ -23,6 +23,7 @@ namespace VehicleTracking.API
             services.AddMvc();
             services.AddRabbitMq(Configuration);
             services.AddScoped<IEventHandler<StatusChangedEvent>, StatusChangedHandler>();
+            services.AddScoped<IEventHandler<UpdateVehicleEvent>, VehicleUpdatedHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
