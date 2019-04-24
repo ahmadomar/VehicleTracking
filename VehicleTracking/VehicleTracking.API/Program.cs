@@ -1,7 +1,7 @@
-﻿using VehicleTracking.Common.MQ.Commands;
+﻿using VehicleTracking.Common.MQ.Events;
 using VehicleTracking.Common.MQ.Services;
 
-namespace VehicleTracking.StatusMS
+namespace VehicleTracking.API
 {
     public class Program
     {
@@ -9,10 +9,9 @@ namespace VehicleTracking.StatusMS
         {
             ServiceHost.Create<Startup>(args)
                 .UseRabbitMq()
-                .SubscribeToCommand<StatusChange>()
+                .SubscribeToEvent<StatusChangedEvent>()
                 .Build()
                 .Run();
         }
-        
     }
 }

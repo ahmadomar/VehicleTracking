@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using RawRabbit;
 using System;
 using VehicleTracking.Common.MQ.Commands;
@@ -76,27 +77,41 @@ namespace VehicleTracking.Common.MQ.Services
 
             public BusBuilder SubscribeToCommand<TCommand>() where TCommand : ICommand
             {
-                var handler = (ICommandHandler<TCommand>)_webHost.Services
-                    .GetService(typeof(ICommandHandler<TCommand>));
+                using (var scope = _webHost.Services.CreateScope())
+                {
+                    var handler = (ICommandHandler<TCommand>)scope.ServiceProvider.GetRequiredService(typeof(ICommandHandler<TCommand>));
+                    _bus.WithCommandHandlerAsync(handler);
+                }
 
-                _bus.WithCommandHandlerAsync(handler);
+                //var handler = (ICommandHandler<TCommand>)_webHost.Services
+                //    .GetService(typeof(ICommandHandler<TCommand>));
 
+                //_bus.WithCommandHandlerAsync(handler);
+                
                 return this;
             }
 
             public BusBuilder SubscribeToEvent<TEvent>() where TEvent : IEvent
             {
-                var handler = (IEventHandler<TEvent>)_webHost.Services
-                    .GetService(typeof(IEventHandler<TEvent>));
 
-                _bus.WithEventHandlerAsync(handler);
+                using (var scope = _webHost.Services.CreateScope())
+                {
+                    var handler = (IEventHandler<TEvent>) scope.ServiceProvider.GetRequiredService(typeof(IEventHandler<TEvent>));
+
+                    _bus.WithEventHandlerAsync(handler);
+                }
+
+                //var handler = (IEventHandler<TEvent>)_webHost.Services
+                //    .GetService(typeof(IEventHandler<TEvent>));
+
+                //_bus.WithEventHandlerAsync(handler);
 
                 return this;
             }
 
             public override ServiceHost Build()
             {
-                throw new NotImplementedException();
+                return new ServiceHost(_webHost);
             }
         }
     }
