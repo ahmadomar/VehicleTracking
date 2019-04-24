@@ -15,21 +15,21 @@ namespace VehicleTracking.Common.MQ.RabbitMq
             ICommandHandler<TCommand> handler) where TCommand : ICommand
         {
 
-            
-            return bus.SubscribeAsync<TCommand>(async (message, context) =>
-                await handler.HandleAsync(message)
+
+            return bus.SubscribeAsync<TCommand>((message, context) =>
+                handler.HandleAsync(message)
             , cfg => cfg
-                 .WithRoutingKey("test_key")
-                 .WithQueue(q => q.WithName(GetQueueName<TCommand>()))
-                 .WithExchange(ex => ex.WithName("test_exchange")));
+                 //.WithRoutingKey("test_key")
+                 .WithQueue(q => q.WithName(GetQueueName<TCommand>())));
+                 //.WithExchange(ex => ex.WithName("test_exchange")));
         }
 
         public static ISubscription WithEventHandlerAsync<TEvent>(this IBusClient bus,
             IEventHandler<TEvent> handler) where TEvent : IEvent
         {
             
-            return bus.SubscribeAsync<TEvent>(async (message, context) =>
-                await handler.HandleAsync(message)
+            return bus.SubscribeAsync<TEvent>((message, context) =>
+                handler.HandleAsync(message)
             , cfg => cfg
                  .WithRoutingKey("test_key")
                  .WithQueue(q => q.WithName(GetQueueName<TEvent>()))
