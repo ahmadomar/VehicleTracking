@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  subscriberapp:
+    image: ${DOCKER_REGISTRY-}subscriberapp
+    build:
+      context: .
+      dockerfile: SubscriberApp/Dockerfile

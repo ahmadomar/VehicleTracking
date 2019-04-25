@@ -27,13 +27,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracking.Common", "V
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracking.Models", "VehicleTracking.Models\VehicleTracking.Models.csproj", "{A7DC8C92-EA73-4A7F-8D13-CBBD4B2ED3BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracking.Common.MQ", "VehicleTracking.Common.MQ\VehicleTracking.Common.MQ.csproj", "{4D932570-D3A2-46EF-A0D8-B193A1C9CF2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracking.Common.MQ", "VehicleTracking.Common.MQ\VehicleTracking.Common.MQ.csproj", "{4D932570-D3A2-46EF-A0D8-B193A1C9CF2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubscriberApp", "SubscriberApp\SubscriberApp.csproj", "{95C0646C-54F4-41C3-BE35-EABB6F47E02C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriberApp", "SubscriberApp\SubscriberApp.csproj", "{95C0646C-54F4-41C3-BE35-EABB6F47E02C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIGateway", "APIGateway", "{3953ECBA-964F-488C-B42E-A93B7EB40410}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracking.API", "VehicleTracking.API\VehicleTracking.API.csproj", "{5F19008D-B65A-41EA-A002-FCDBB15A559F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracking.API", "VehicleTracking.API\VehicleTracking.API.csproj", "{5F19008D-B65A-41EA-A002-FCDBB15A559F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
