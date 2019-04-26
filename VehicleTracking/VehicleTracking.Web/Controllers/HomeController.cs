@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR.Client;
 using Microsoft.AspNetCore.Mvc;
+using VehicleTracking.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,20 +12,11 @@ namespace VehicleTracking.Web.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: /<controller>/
         public IActionResult Index()
         {
-            var client = new SignalRMasterClient("https://localhost:44340/status");
-
-            // Send message to server.
-            client.SayHello("Message from client to Server!");
-
-            Console.ReadKey();
-
-            // Stop connection with the server to immediately call "OnDisconnected" event 
-            // in server hub class.
-            client.Stop();
-            return View();
+            var data = VehicleStaticData.ReadData();
+            var vehiclesList = data.SelectMany(v => v.Vehicles.ToList()).ToList();
+            return View(vehiclesList);
         }
     }
 

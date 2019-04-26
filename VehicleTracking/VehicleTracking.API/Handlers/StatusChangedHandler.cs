@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using VehicleTracking.API.Hubs;
 using VehicleTracking.Common.MQ.Events;
 
 namespace VehicleTracking.API.Handlers

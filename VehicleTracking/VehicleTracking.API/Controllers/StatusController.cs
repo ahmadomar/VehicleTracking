@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using RawRabbit;
 using System.Threading.Tasks;
+using VehicleTracking.API.Hubs;
 using VehicleTracking.Common.MQ.Commands;
 
 namespace VehicleTracking.API.Controllers
@@ -9,9 +11,11 @@ namespace VehicleTracking.API.Controllers
     public class StatusController : Controller
     {
         private readonly IBusClient _busClient;
-        public StatusController(IBusClient busClient)
+        private readonly IHubContext<VehicleStatusHub> _chatHub;
+        public StatusController(IBusClient busClient, IHubContext<VehicleStatusHub> chatHub)
         {
             _busClient = busClient;
+            _chatHub = chatHub;
         }
 
 
@@ -20,7 +24,9 @@ namespace VehicleTracking.API.Controllers
         {
             await _busClient.PublishAsync(command);
 
-            return Accepted($"status/{command.VehicleNumber}");
+            await _chatHub.Clients.All.SendAsync("ReceiveStatusChanges", command);
+
+            return Accepted($"status/{command.VehicleNumber + command.RegNr}");
         }
     }
 }

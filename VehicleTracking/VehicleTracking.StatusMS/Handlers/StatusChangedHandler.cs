@@ -17,8 +17,8 @@ namespace VehicleTracking.StatusMS.Handlers
 
         public async Task HandleAsync(StatusChangeCommand command)
         {
-            Console.WriteLine($"Changing Status: {command.VehicleNumber}");
-            await _busClient.PublishAsync(new StatusChangedEvent(command.VehicleNumber, command.Status));
+            Console.WriteLine($"Changing Status for vehicle: {command.VehicleNumber}-{command.RegNr}");
+            await _busClient.PublishAsync(new StatusChangedEvent(command.VehicleNumber, command.RegNr, command.Status));
         }
     }
 }

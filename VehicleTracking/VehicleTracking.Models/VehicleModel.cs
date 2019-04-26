@@ -6,7 +6,7 @@ namespace VehicleTracking.Models
     public class VehicleModel
     {
         [Key]
-        public string VehicleId { get; set; }
+        public string VehicleNumber { get; set; }
         public string RegNr { get; set; }
         public string Status { get; set; }
 

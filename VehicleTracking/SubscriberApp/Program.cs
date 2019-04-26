@@ -1,59 +1,51 @@
-﻿using Newtonsoft.Json;
-using RestSharp;
+﻿using Microsoft.AspNetCore.SignalR.Client;
 using System;
-using System.Linq;
-using VehicleTracking.Models;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace SubscriberApp
 {
     class Program
     {
-        public static string[] ConnectionStatus => new string[] { "Connected", "NotConnected" };
         static void Main(string[] args)
         {
-            var random = new Random();
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
 
-            var randomConnection = new Random();
+            HubConnection connection = new HubConnectionBuilder()
+                .WithUrl("https://localhost:5001/VehicleStatusHub")
+                .Build();
 
-            var data = VehicleStaticData.ReadData();
-            var vehiclesList = data.SelectMany(v => v.Vehicles.ToList()).ToList();
-
-            var startTimeSpan = TimeSpan.Zero;
-            var periodTimeSpan = TimeSpan.FromMinutes(1);
-
-            var timer = new System.Threading.Timer((e) =>
+            connection.Closed += async (error) =>
             {
-                int itemIndex = random.Next(vehiclesList.Count);
-                int connectionIntex = randomConnection.Next(ConnectionStatus.Length);
-
-                var vehicle = vehiclesList[itemIndex];
-
-                vehicle.Status = ConnectionStatus[connectionIntex];
-
-                NotifyClient(vehicle);
-                Console.WriteLine($"Vehicle {vehicle.RegNr}: {vehicle.Status}");
-                
-            }, null, startTimeSpan, periodTimeSpan);
-
-            
-
-            Console.WriteLine("Hello World!");
-            Console.ReadLine();
-        }
-
-        private static void NotifyClient(VehicleModel vehicle)
-        {
-            var statusJson = new
-            {
-                VehicleNumber = vehicle.RegNr,
-                Status = vehicle.Status
+                await Task.Delay(new Random().Next(0, 5) * 1000);
+                await connection.StartAsync();
             };
 
-            var client = new RestClient("https://localhost:5001/status");
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("Content-Type", "application/json");
-            request.AddParameter("", JsonConvert.SerializeObject(statusJson), ParameterType.RequestBody);
-            IRestResponse response = client.Execute(request);
+
+            connection.On<VehicleData>("ReceiveStatusChanges", (vehicleData) =>
+            {
+                var newMessage = $"{vehicleData.VehicleNumber}: {vehicleData.Status}";
+                Console.WriteLine(newMessage);
+            });
+
+            try
+            {
+                connection.StartAsync();
+                Console.WriteLine("Connection started");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.Read();
+            connection.StopAsync();
+        }
+
+        public class VehicleData
+        {
+            public string VehicleNumber { get; set; }
+            public string Status { get; set; }
         }
     }
 }
