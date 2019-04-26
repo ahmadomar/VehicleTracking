@@ -1,29 +1,24 @@
-﻿using VehicleTracking.DataMS.DataContext;
-using VehicleTracking.DataMS.Repositories;
+﻿using System.Threading.Tasks;
+using VehicleTracking.DataMS.DataContext;
 
 namespace VehicleTracking.DataMS.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly VehicleDBContext _context;
-        public UnitOfWork(VehicleDBContext context)
+        private VehicleDBContext dbContext;
+        public UnitOfWork(VehicleDBContext dbContext)
         {
-            _context = context;
-            Vehicles = new VehicleRepository(_context);
-            Customers = new CustomerRepository(_context);
-        }
-        public IVehicleRepository Vehicles { get; private set; }
-
-        public ICustomerRepository Customers { get; private set; }
-
-        public int Complete()
-        {
-            return _context.SaveChanges();
+            this.dbContext = dbContext;
         }
 
-        public void Dispose()
+        public int Commit()
         {
-            _context.Dispose();
+            return dbContext.SaveChanges();
+        }
+
+        public async Task<int> CommitAsync()
+        {
+            return await dbContext.SaveChangesAsync();
         }
     }
 }

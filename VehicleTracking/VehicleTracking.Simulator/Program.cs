@@ -23,7 +23,7 @@ namespace VehicleTracking.Simulator
             var vehiclesList = data.SelectMany(v => v.Vehicles.ToList()).ToList();
 
             var startTimeSpan = TimeSpan.Zero;
-            var periodTimeSpan = TimeSpan.FromSeconds(10);
+            var periodTimeSpan = TimeSpan.FromSeconds(20);
 
             var timer = new System.Threading.Timer((e) =>
             {

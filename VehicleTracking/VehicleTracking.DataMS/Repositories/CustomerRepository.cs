@@ -6,12 +6,12 @@ namespace VehicleTracking.DataMS.Repositories
 {
     public class CustomerRepository : RepositoryBase<CustomerModel>, ICustomerRepository
     {
-        public CustomerRepository(VehicleDBContext vehicleDBContext)
-            :base(vehicleDBContext)
+        public CustomerRepository(VehicleDBContext vehicleDBContext) : base(vehicleDBContext)
         {
-
         }
     }
 
-    public interface ICustomerRepository : IRepository<CustomerModel> { }
+    public interface ICustomerRepository : IRepository<CustomerModel>
+    {
+    }
 }

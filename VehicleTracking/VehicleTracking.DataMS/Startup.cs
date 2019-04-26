@@ -7,6 +7,9 @@ using VehicleTracking.Common.MQ.Commands;
 using VehicleTracking.Common.MQ.RabbitMq;
 using VehicleTracking.DataMS.DataContext;
 using VehicleTracking.DataMS.Handlers;
+using VehicleTracking.DataMS.Infrastructure;
+using VehicleTracking.DataMS.Repositories;
+using VehicleTracking.DataMS.Services;
 
 namespace VehicleTracking.DataMS
 {
@@ -22,7 +25,12 @@ namespace VehicleTracking.DataMS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<VehicleDBContext>(options => options.UseInMemoryDatabase("VehicleTrackingDB"));
+            services.AddDbContext<VehicleDBContext>(options => options.UseInMemoryDatabase("VehicleTrackingDB"), ServiceLifetime.Singleton);
+
+            services.AddSingleton(typeof(IUnitOfWork), typeof(UnitOfWork));
+            services.AddSingleton(typeof(IVehicleRepository), typeof(VehicleRepository));
+            services.AddSingleton(typeof(IVehicleService), typeof(VehicleService));
+
             services.AddMvc();
             services.AddRabbitMq(Configuration);
             services.AddScoped<ICommandHandler<UpdateVehicleCommand>, UpdatedVehicleHandler>();

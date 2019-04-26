@@ -24,6 +24,13 @@ namespace VehicleTracking.API.Controllers
         {
             await _busClient.PublishAsync(command);
 
+            await _busClient.PublishAsync(new UpdateVehicleCommand
+            {
+                VehicleNumber = command.VehicleNumber,
+                RegNr = command.RegNr,
+                Status = command.Status
+            });
+
             await _chatHub.Clients.All.SendAsync("ReceiveStatusChanges", command);
 
             return Accepted($"status/{command.VehicleNumber + command.RegNr}");

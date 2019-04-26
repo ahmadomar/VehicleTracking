@@ -8,24 +8,16 @@
 
   <ItemGroup>
     <Compile Remove="Domain\**" />
-    <Compile Remove="Infrastructure\**" />
     <Compile Remove="Models\**" />
-    <Compile Remove="Repositories\**" />
     <Compile Remove="wwwroot\**" />
     <Content Remove="Domain\**" />
-    <Content Remove="Infrastructure\**" />
     <Content Remove="Models\**" />
-    <Content Remove="Repositories\**" />
     <Content Remove="wwwroot\**" />
     <EmbeddedResource Remove="Domain\**" />
-    <EmbeddedResource Remove="Infrastructure\**" />
     <EmbeddedResource Remove="Models\**" />
-    <EmbeddedResource Remove="Repositories\**" />
     <EmbeddedResource Remove="wwwroot\**" />
     <None Remove="Domain\**" />
-    <None Remove="Infrastructure\**" />
     <None Remove="Models\**" />
-    <None Remove="Repositories\**" />
     <None Remove="wwwroot\**" />
   </ItemGroup>
 

@@ -1,12 +1,10 @@
-﻿using System;
-using VehicleTracking.DataMS.Repositories;
+﻿using System.Threading.Tasks;
 
 namespace VehicleTracking.DataMS.Infrastructure
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork
     {
-        IVehicleRepository Vehicles { get; }
-        ICustomerRepository Customers { get; }
-        int Complete();
+        int Commit();
+        Task<int> CommitAsync();
     }
 }

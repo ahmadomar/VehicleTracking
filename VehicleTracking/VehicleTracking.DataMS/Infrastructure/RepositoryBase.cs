@@ -1,51 +1,97 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using VehicleTracking.DataMS.DataContext;
 
 namespace VehicleTracking.DataMS.Infrastructure
 {
-    public class RepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class
+    public abstract class RepositoryBase<T> where T : class
     {
-        protected readonly DbContext Context;
-        public RepositoryBase(DbContext context)
+        #region Properties
+
+        private VehicleDBContext dataContext;
+        private DbSet<T> dbSet;
+        
+        #endregion
+
+        public RepositoryBase(VehicleDBContext dataContext)
         {
-            Context = context;
-        }
-        public void Add(TEntity entity)
-        {
-            Context.Set<TEntity>().Add(entity);
+            this.dataContext = dataContext;
+            dbSet = dataContext.Set<T>();
         }
 
-        public void AddRange(IEnumerable<TEntity> entities)
+
+        #region Implementation
+
+        public virtual EntityEntry<T> Add(T entity)
         {
-            Context.Set<TEntity>().AddRange(entities);
+            return dbSet.Add(entity);
         }
 
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        public virtual void Update(T entity)
         {
-            return Context.Set<TEntity>().Where(predicate).ToList();
+            dbSet.Attach(entity);
+            dataContext.Entry(entity).State = EntityState.Modified;
         }
 
-        public TEntity Get(int id)
+        public virtual void Delete(T entity)
         {
-            return Context.Set<TEntity>().Find(id);
+            dbSet.Remove(entity);
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public virtual void Delete(Expression<Func<T,bool>> where)
         {
-            return Context.Set<TEntity>().ToList();
+            IEnumerable<T> objects = dbSet.Where<T>(where).AsEnumerable();
+            foreach (T obj in objects)
+                dbSet.Remove(obj);
         }
 
-        public void Remove(TEntity entity)
+        public virtual T GetById(int id)
         {
-            Context.Set<TEntity>().Remove(entity);
+            return dbSet.Find(id);
         }
 
-        public void RemoveRange(IEnumerable<TEntity> entities)
+        public virtual T GetById(string id)
         {
-            Context.Set<TEntity>().RemoveRange(entities);
+            return dbSet.Find(id);
         }
+
+        public virtual IEnumerable<T> Take(int top, Func<T, object> OrderByColumn)
+        {
+            return dbSet.OrderByDescending(OrderByColumn).Take(top);
+        }
+
+        public virtual IEnumerable<T> GetAll()
+        {
+            return dbSet.ToList();
+        }
+
+        public virtual IEnumerable<T> GetMany(Expression<Func<T,bool>> where)
+        {
+            return dbSet.Where(where).ToList();
+        }
+
+        //public virtual IEnumerable<TSource> DistinctBy<TSource, TKey>
+        //    (this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+        //{
+        //    HashSet<TKey> seenKeys = new HashSet<TKey>();
+        //    foreach (TSource element in source)
+        //    {
+        //        if (seenKeys.Add(keySelector(element)))
+        //        {
+        //            yield return element;
+        //        }
+        //    }
+        //}
+
+        public T Get(Expression<Func<T,bool>> where)
+        {
+            return dbSet.Where(where).FirstOrDefault<T>();
+        }
+        #endregion
+
     }
 }

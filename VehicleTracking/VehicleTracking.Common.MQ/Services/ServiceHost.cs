@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RawRabbit;
 using System;
-using System.Threading.Tasks;
 using VehicleTracking.Common.MQ.Commands;
 using VehicleTracking.Common.MQ.Events;
 using VehicleTracking.Common.MQ.RabbitMq;
@@ -13,7 +12,7 @@ namespace VehicleTracking.Common.MQ.Services
 {
     public class ServiceHost : IServiceHost
     {
-        private readonly IWebHost _webHost;
+        public IWebHost _webHost { private set; get; }
 
         public ServiceHost(IWebHost webHost)
         {
@@ -29,7 +28,7 @@ namespace VehicleTracking.Common.MQ.Services
                 .AddEnvironmentVariables()
                 .AddCommandLine(args)
                 .Build();
-
+            
             var webHostBuilder = WebHost.CreateDefaultBuilder(args)
                 .UseConfiguration(config)
                 .UseStartup<TStartup>();
@@ -69,6 +68,7 @@ namespace VehicleTracking.Common.MQ.Services
         {
             private readonly IWebHost _webHost;
             private IBusClient _bus;
+            
 
             public BusBuilder(IWebHost webHost, IBusClient bus)
             {

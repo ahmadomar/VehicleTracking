@@ -1,19 +1,21 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace VehicleTracking.DataMS.Infrastructure
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IRepository<T> where T : class
     {
-        TEntity Get(int id);
-        IEnumerable<TEntity> GetAll();
-        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
-
-        void Add(TEntity entity);
-        void AddRange(IEnumerable<TEntity> entities);
-
-        void Remove(TEntity entity);
-        void RemoveRange(IEnumerable<TEntity> entities);
+        EntityEntry<T> Add(T entity);
+        void Update(T entity);
+        void Delete(T entity);
+        void Delete(Expression<Func<T, bool>> where);
+        T GetById(int id);
+        T GetById(string id);
+        T Get(Expression<Func<T, bool>> where);
+        IEnumerable<T> Take(int top, Func<T, object> OrderByColumn);
+        IEnumerable<T> GetAll();
+        IEnumerable<T> GetMany(Expression<Func<T, bool>> where);
     }
 }

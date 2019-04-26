@@ -11,22 +11,20 @@ namespace VehicleTracking.DataMS
     {
         public static void Main(string[] args)
         {
-            //var host = CreateWebHostBuilder(args).Build();
-
-
-            //using (var scope = host.Services.CreateScope())
-            //{
-            //    var services = scope.ServiceProvider;
-            //    var context = services.GetRequiredService<VehicleDBContext>();
-                
-            //    DataGenerator.Initialize(services);
-            //}
-
-            ServiceHost.Create<Startup>(args)
+            var servHost = ServiceHost.Create<Startup>(args)
                 .UseRabbitMq()
                 .SubscribeToCommand<UpdateVehicleCommand>()
-                .Build()
-                .Run();
+                .Build();
+
+            using (var scope = servHost._webHost.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<VehicleDBContext>();
+
+                DataGenerator.Initialize(services);
+            }
+
+            servHost.Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

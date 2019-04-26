@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using VehicleTracking.DataMS.DataContext;
+using VehicleTracking.DataMS.Services;
 using VehicleTracking.Models;
 
 namespace VehicleTracking.DataMS.Controllers
@@ -10,25 +12,25 @@ namespace VehicleTracking.DataMS.Controllers
     public class VehicleController : ControllerBase
 
     {
-        private readonly VehicleDBContext _db;
-        public VehicleController(VehicleDBContext vehicleDBContext)
+        private readonly IVehicleService _vehicleService;
+        public VehicleController(IVehicleService vehicleService)
         {
-            _db = vehicleDBContext;
+            _vehicleService = vehicleService;
         }
 
 
         // GET api/Vehicle
         [HttpGet]
-        public ActionResult<IEnumerable<VehicleModel>> Get()
+        public IEnumerable<VehicleModel> Get()
         {
-            return _db.Vehicles;
+            return _vehicleService.GetAll();
         }
         
         // GET api/Vehicle/vehicleId
         [HttpGet("{vehicleId}")]
         public ActionResult<VehicleModel> Get(string vehicleId)
         {
-            var vehicle = _db.Find<VehicleModel>(vehicleId);
+            var vehicle = _vehicleService.GetAll().Where(v => v.VehicleNumber == vehicleId).FirstOrDefault();
             return vehicle;
         }
     }
