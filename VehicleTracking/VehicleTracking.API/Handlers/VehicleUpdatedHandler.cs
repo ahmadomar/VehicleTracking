@@ -6,7 +6,6 @@ namespace VehicleTracking.API.Handlers
 {
     public class VehicleUpdatedHandler : IEventHandler<UpdateVehicleEvent>
     {
-
         public async Task HandleAsync(UpdateVehicleEvent @event)
         {
             await Task.CompletedTask;

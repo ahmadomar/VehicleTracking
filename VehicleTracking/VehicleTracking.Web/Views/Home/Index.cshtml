@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<VehicleTracking.Models.VehicleModel>
 
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Vehicle Tracking";
 }
+<link href="~/css/mysite.css" rel="stylesheet" />
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="lib/signalr/signalr.js"></script>
 
@@ -34,46 +35,79 @@
     });
 </script>
 <br />
-<div class="row">
-    <div class="col-xs-9">
-        <table class="table table-bordered table-striped table-responsive">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.VehicleNumber)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.RegNr)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CustomerId)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Status)
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    var statusClass = item.Status == "Connected" ? "success" : "danger";
-                    <tr class="@statusClass">
-                        <td>
-                            @Html.DisplayFor(modelItem => item.VehicleNumber)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RegNr)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CustomerId)
-                        </td>
-                        <td id="@(item.RegNr + item.VehicleNumber)">
-                            @Html.DisplayFor(modelItem => item.Status)
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
 
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="input-group" id="adv-search">
+                <input type="text" class="form-control" placeholder="Search" />
+                <div class="input-group-btn">
+                    <div class="btn-group" role="group">
+                        <div class="dropdown dropdown-lg">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                <div class="form-horizontal" role="form">
+                                    <form class="form-group">
+                                        <label for="filter">Status</label>
+                                        <select class="form-control">
+                                            <option value="0" selected>All</option>
+                                            <option value="Connected">Connected</option>
+                                            <option value="NotConnected">Not Connected</option>
+                                        </select>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped table-responsive">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.VehicleNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RegNr)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CustomerId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var statusClass = item.Status == "Connected" ? "success" : "danger";
+                        <tr class="@statusClass">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.VehicleNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RegNr)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CustomerId)
+                            </td>
+                            <td id="@(item.RegNr + item.VehicleNumber)">
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
