@@ -18,10 +18,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.5.4" />
     <PackageReference Include="RawRabbit" Version="1.10.4" />
+    <PackageReference Include="RestSharp" Version="106.6.9" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\VehicleTracking.Common.MQ\VehicleTracking.Common.MQ.csproj" />
+    <ProjectReference Include="..\VehicleTracking.Models\VehicleTracking.Models.csproj" />
   </ItemGroup>
 
 </Project>

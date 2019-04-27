@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace VehicleTracking.API.Hubs
 {
-    public class VehicleStatusHub : Hub
+    public class VehicleHub : Hub
     {
         public Task SendMessage(string user, string message)
         {

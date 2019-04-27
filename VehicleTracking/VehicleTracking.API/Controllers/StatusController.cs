@@ -11,11 +11,11 @@ namespace VehicleTracking.API.Controllers
     public class StatusController : Controller
     {
         private readonly IBusClient _busClient;
-        private readonly IHubContext<VehicleStatusHub> _chatHub;
-        public StatusController(IBusClient busClient, IHubContext<VehicleStatusHub> chatHub)
+        private readonly IHubContext<VehicleHub> _vehHub;
+        public StatusController(IBusClient busClient, IHubContext<VehicleHub> vehHub)
         {
             _busClient = busClient;
-            _chatHub = chatHub;
+            _vehHub = vehHub;
         }
 
 
@@ -31,7 +31,7 @@ namespace VehicleTracking.API.Controllers
                 Status = command.Status
             });
 
-            await _chatHub.Clients.All.SendAsync("ReceiveStatusChanges", command);
+            await _vehHub.Clients.All.SendAsync("ReceiveStatusChanges", command);
 
             return Accepted($"status/{command.VehicleNumber + command.RegNr}");
         }

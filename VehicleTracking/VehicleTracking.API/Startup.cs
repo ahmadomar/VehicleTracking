@@ -49,7 +49,7 @@ namespace VehicleTracking.API
 
             app.UseSignalR(route =>
             {
-                route.MapHub<VehicleStatusHub>("/VehicleStatusHub");
+                route.MapHub<VehicleHub>("/VehicleHub");
             });
             
             app.UseHttpsRedirection();

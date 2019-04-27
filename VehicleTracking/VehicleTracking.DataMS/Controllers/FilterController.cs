@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using VehicleTracking.DataMS.DataContext;
+using VehicleTracking.DataMS.Services;
 using VehicleTracking.Models;
 
 namespace FilterTracking.DataMS.Controllers
@@ -11,27 +11,28 @@ namespace FilterTracking.DataMS.Controllers
     public class FilterController : ControllerBase
 
     {
-        private readonly VehicleDBContext _db;
-        public FilterController(VehicleDBContext db)
+        private readonly IVehicleService _vehicleService;
+        public FilterController(IVehicleService vehicleService)
         {
-            _db = db;
+            _vehicleService = vehicleService;
         }
 
 
         // GET api/Filter
         [HttpGet]
-        public ActionResult<List<VehicleModel>> Get(string customerName = null, string status = null)
+        public ActionResult<List<VehicleModel>> Get(string filter = null, string status = null)
         {
-            var vehicles = _db.Vehicles.ToList();
+            var vehicles = _vehicleService.GetAll().ToList();
 
-            if (string.IsNullOrEmpty(customerName) && string.IsNullOrEmpty(status))
+            if (string.IsNullOrEmpty(filter) && string.IsNullOrEmpty(status))
                 return vehicles;
 
-            if (!string.IsNullOrEmpty(customerName))
+            if (!string.IsNullOrEmpty(filter))
             {
-                //vehicles = vehicles.Where(v => v.Customer.Name.Contains(customerName)).ToList();
+                vehicles = vehicles.Where(v => v.VehicleNumber.Contains(filter)).ToList();
             }
-            else
+
+            if (!string.IsNullOrEmpty(status))
             {
                 vehicles = vehicles.Where(v => v.Status.Contains(status)).ToList();
             }
