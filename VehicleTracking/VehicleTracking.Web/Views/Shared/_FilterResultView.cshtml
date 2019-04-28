@@ -1,4 +1,4 @@
-﻿@model IEnumerable<VehicleTracking.Models.VehicleModel>
+﻿@model IEnumerable<VehicleTracking.Models.VehicleViewModel>
 <div class="row">
     <div class="col-md-12">
         <table class="table table-bordered table-striped table-responsive">
@@ -11,7 +11,7 @@
                         @Html.DisplayNameFor(model => model.RegNr)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.CustomerId)
+                        @Html.DisplayNameFor(model => model.CustomerName)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Status)
@@ -30,7 +30,7 @@
                             @Html.DisplayFor(modelItem => item.RegNr)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CustomerId)
+                            @Html.DisplayFor(modelItem => item.CustomerName)
                         </td>
                         <td id="@(item.RegNr + item.VehicleNumber)">
                             @Html.DisplayFor(modelItem => item.Status)

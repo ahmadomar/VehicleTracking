@@ -1,13 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RawRabbit;
+﻿using RawRabbit;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using VehicleTracking.Common.MQ.Commands;
 using VehicleTracking.Common.MQ.Events;
-using VehicleTracking.DataMS.DataContext;
 using VehicleTracking.DataMS.Services;
-using VehicleTracking.Models;
 
 namespace VehicleTracking.DataMS.Handlers
 {

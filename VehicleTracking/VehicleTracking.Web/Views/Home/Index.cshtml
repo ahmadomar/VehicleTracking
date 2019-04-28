@@ -1,4 +1,4 @@
-﻿@model IEnumerable<VehicleTracking.Models.VehicleModel>
+﻿@model IEnumerable<VehicleTracking.Models.VehicleViewModel>
 
 @{
     ViewData["Title"] = "Vehicle Tracking";
@@ -8,15 +8,16 @@
 <script src="lib/signalr/signalr.js"></script>
 
 <script>
+    var vehicleHubUrl = '@ViewBag.VehicleHub';
     const connection = new signalR.HubConnectionBuilder()
-        .withUrl("https://localhost:5001/VehicleHub")
+        .withUrl(vehicleHubUrl)
         .configureLogging(signalR.LogLevel.Information)
         .build();
 
     connection.start().then(function () {
         console.log("connected");
     });
-    
+
     connection.on("ReceiveStatusChanges", (vehicleData) => {
         var vehicleTd = $('#' + vehicleData.regNr + vehicleData.vehicleNumber);
 
@@ -27,7 +28,7 @@
                 .addClass('success');
         }
         else {
-            $(vehicleTd).html('Not Connected')
+            $(vehicleTd).html('Disconnected')
                 .parent('tr')
                 .removeClass('success')
                 .addClass('danger');
@@ -71,7 +72,7 @@
                                         <select id="ddlStatus" class="form-control">
                                             <option value="" selected>All</option>
                                             <option value="Connected">Connected</option>
-                                            <option value="NotConnected">Not Connected</option>
+                                            <option value="Disconnected">Disconnected</option>
                                         </select>
                                     </form>
                                 </div>
@@ -99,7 +100,7 @@
                                 @Html.DisplayNameFor(model => model.RegNr)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CustomerId)
+                                @Html.DisplayNameFor(model => model.CustomerName)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Status)
@@ -118,7 +119,7 @@
                                     @Html.DisplayFor(modelItem => item.RegNr)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CustomerId)
+                                    @Html.DisplayFor(modelItem => item.CustomerName)
                                 </td>
                                 <td id="@(item.RegNr + item.VehicleNumber)">
                                     @Html.DisplayFor(modelItem => item.Status)
@@ -130,6 +131,6 @@
             </div>
         </div>
     </div>
-    
+
 
 </div>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -25,13 +26,18 @@ namespace VehicleTracking.DataMS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper();
+
             services.AddDbContext<VehicleDBContext>(options => options.UseInMemoryDatabase("VehicleTrackingDB"), ServiceLifetime.Singleton);
 
             services.AddSingleton(typeof(IUnitOfWork), typeof(UnitOfWork));
             services.AddSingleton(typeof(IVehicleRepository), typeof(VehicleRepository));
             services.AddSingleton(typeof(IVehicleService), typeof(VehicleService));
 
-            services.AddMvc();
+            services.AddMvc()
+                            .AddJsonOptions(
+                                options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                            );
             services.AddRabbitMq(Configuration);
             services.AddScoped<ICommandHandler<UpdateVehicleCommand>, UpdatedVehicleHandler>();
         }

@@ -8,20 +8,17 @@
 
   <ItemGroup>
     <Compile Remove="Domain\**" />
-    <Compile Remove="Models\**" />
     <Compile Remove="wwwroot\**" />
     <Content Remove="Domain\**" />
-    <Content Remove="Models\**" />
     <Content Remove="wwwroot\**" />
     <EmbeddedResource Remove="Domain\**" />
-    <EmbeddedResource Remove="Models\**" />
     <EmbeddedResource Remove="wwwroot\**" />
     <None Remove="Domain\**" />
-    <None Remove="Models\**" />
     <None Remove="wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.2.4" />

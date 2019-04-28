@@ -9,7 +9,7 @@ namespace VehicleTracking.Simulator
 {
     class Program
     {
-        public static string[] ConnectionStatus => new string[] { "Connected", "NotConnected" };
+        public static string[] ConnectionStatus => new string[] { "Connected", "Disconnected", "Connected", "Disconnected", };
         static void Main(string[] args)
         {
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
@@ -23,7 +23,7 @@ namespace VehicleTracking.Simulator
             var vehiclesList = data.SelectMany(v => v.Vehicles.ToList()).ToList();
 
             var startTimeSpan = TimeSpan.Zero;
-            var periodTimeSpan = TimeSpan.FromSeconds(20);
+            var periodTimeSpan = TimeSpan.FromSeconds(5);
 
             var timer = new System.Threading.Timer((e) =>
             {

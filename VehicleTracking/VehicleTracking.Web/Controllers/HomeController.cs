@@ -17,9 +17,12 @@ namespace VehicleTracking.Web.Controllers
 
         public IActionResult Index()
         {
+
+            ViewBag.VehicleHub = _iConfig.GetValue<string>("GatewayAPI-SignalRHub");
+
             var vehiclesList = ReadVehicles();
             if (vehiclesList == null)
-                vehiclesList = new List<VehicleModel>();
+                vehiclesList = new List<VehicleViewModel>();
             return View(vehiclesList);
         }
 
@@ -28,12 +31,12 @@ namespace VehicleTracking.Web.Controllers
         {
             var vehiclesList = ReadVehicles(filter, status);
             if (vehiclesList == null)
-                vehiclesList = new List<VehicleModel>();
+                vehiclesList = new List<VehicleViewModel>();
 
             return PartialView("_FilterResultView", vehiclesList);
         }
 
-        private List<VehicleModel> ReadVehicles(string filter = null, string status = null)
+        private List<VehicleViewModel> ReadVehicles(string filter = null, string status = null)
         {
             try
             {
@@ -45,11 +48,11 @@ namespace VehicleTracking.Web.Controllers
                 request.AddParameter("status", status);
 
                 IRestResponse response = client.Execute(request);
-                return JsonConvert.DeserializeObject<List<VehicleModel>>(response.Content);
+                return JsonConvert.DeserializeObject<List<VehicleViewModel>>(response.Content);
             }
             catch
             {
-                return new List<VehicleModel>();
+                return new List<VehicleViewModel>();
             }
         }
     }

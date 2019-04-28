@@ -27,8 +27,9 @@ namespace VehicleTracking.API.Controllers
 
 
         [HttpGet]
-        public IEnumerable<VehicleModel> Get(string filter, string status)
+        public IEnumerable<VehicleViewModel> Get(string filter, string status)
         {
+            status = status.Trim();
             var filterApi = _iConfig.GetValue<string>("DataMS-Filter");
 
             var client = new RestClient(filterApi);
@@ -37,7 +38,7 @@ namespace VehicleTracking.API.Controllers
             request.AddParameter("status", status);
 
             IRestResponse response = client.Execute(request);
-            return JsonConvert.DeserializeObject<List<VehicleModel>>(response.Content);
+            return JsonConvert.DeserializeObject<List<VehicleViewModel>>(response.Content);
             //await _busClient.PublishAsync(command);
 
             //await _vehHub.Clients.All.SendAsync("ReadFilterResults", "Test");

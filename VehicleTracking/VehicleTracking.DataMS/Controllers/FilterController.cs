@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using VehicleTracking.DataMS.Services;
@@ -11,32 +12,38 @@ namespace FilterTracking.DataMS.Controllers
     public class FilterController : ControllerBase
 
     {
+        private readonly IMapper _mapper;
         private readonly IVehicleService _vehicleService;
-        public FilterController(IVehicleService vehicleService)
+        public FilterController(IMapper mapper, IVehicleService vehicleService)
         {
+            _mapper = mapper;
             _vehicleService = vehicleService;
         }
 
 
         // GET api/Filter
         [HttpGet]
-        public ActionResult<List<VehicleModel>> Get(string filter = null, string status = null)
+        public ActionResult<List<VehicleViewModel>> Get(string filter = null, string status = null)
         {
             var vehicles = _vehicleService.GetAll().ToList();
 
+            var mappedVehicles = _mapper.Map<List<VehicleViewModel>>(vehicles);
+
             if (string.IsNullOrEmpty(filter) && string.IsNullOrEmpty(status))
-                return vehicles;
+                return mappedVehicles;
 
             if (!string.IsNullOrEmpty(filter))
             {
-                vehicles = vehicles.Where(v => v.VehicleNumber.Contains(filter)).ToList();
+                mappedVehicles = mappedVehicles.Where(v => v.VehicleNumber.Contains(filter)
+                                               || v.CustomerName.Contains(filter)).ToList();
             }
 
             if (!string.IsNullOrEmpty(status))
             {
-                vehicles = vehicles.Where(v => v.Status.Contains(status)).ToList();
+                mappedVehicles = mappedVehicles.Where(v => v.Status.Contains(status)).ToList();
             }
-            return vehicles;
+            
+            return mappedVehicles;
         }
         
     }
