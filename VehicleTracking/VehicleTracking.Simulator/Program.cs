@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using RestSharp;
 using System;
+using System.IO;
 using System.Linq;
 using System.Net;
 using VehicleTracking.Models;
@@ -9,11 +11,13 @@ namespace VehicleTracking.Simulator
 {
     class Program
     {
-        public static string[] ConnectionStatus => new string[] { "Connected", "Disconnected", "Connected", "Disconnected", };
+        static string GatewayAPIStatusURL { get; set; }
+        static string[] ConnectionStatus => new string[] { "Connected", "Disconnected", "Connected", "Disconnected", };
         static void Main(string[] args)
         {
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
 
+            GatewayAPIStatusURL = ReadGatwayURL();
 
             var random = new Random();
 
@@ -23,7 +27,7 @@ namespace VehicleTracking.Simulator
             var vehiclesList = data.SelectMany(v => v.Vehicles.ToList()).ToList();
 
             var startTimeSpan = TimeSpan.Zero;
-            var periodTimeSpan = TimeSpan.FromSeconds(5);
+            var periodTimeSpan = TimeSpan.FromMinutes(1);
 
             var timer = new System.Threading.Timer((e) =>
             {
@@ -45,6 +49,16 @@ namespace VehicleTracking.Simulator
             Console.ReadLine();
         }
 
+        private static string ReadGatwayURL()
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+            var configuration = builder.Build();
+            
+            return configuration["GatewayAPI-Status"];
+        }
+
         private static void NotifyClient(VehicleModel vehicle)
         {
             var statusJson = new
@@ -54,7 +68,7 @@ namespace VehicleTracking.Simulator
                 Status = vehicle.Status
             };
 
-            var client = new RestClient("https://localhost:5001/status");
+            var client = new RestClient(GatewayAPIStatusURL);
             var request = new RestRequest(Method.POST);
             request.AddHeader("Content-Type", "application/json");
             request.AddParameter("command", JsonConvert.SerializeObject(statusJson,Formatting.None), ParameterType.RequestBody);
