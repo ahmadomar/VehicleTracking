@@ -28,9 +28,11 @@ Here I am implementing Vehicle Tracking System using some of the technologies to
 
 ## Full architectural
 
-![alt Architectural](VehicleTracking/files/VehicleArchitecture.png)
+![alt Architectural](files/VehicleArchitecture.png)
 
 ## Solution Analysis
+
+![alt Analysis](files/SolutionAnalysis.png)
 
 ## Setup
 
