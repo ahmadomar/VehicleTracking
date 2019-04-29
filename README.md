@@ -24,6 +24,7 @@ Here I am implementing Vehicle Tracking System using some of the technologies to
 - ASP.NET Core SignalR
 - In-Memory Database
 - EntityFramework Core
+- Unit Testing
 - RawRabbit 1.10.4
 
 ## Full architectural
