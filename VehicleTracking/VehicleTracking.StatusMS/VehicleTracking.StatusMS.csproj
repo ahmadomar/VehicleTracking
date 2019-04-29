@@ -7,9 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\Models\" />
-    <Folder Include="Domain\Repositories\" />
-    <Folder Include="wwwroot\" />
+    <Compile Remove="Domain\**" />
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="Domain\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="Domain\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="Domain\**" />
+    <None Remove="wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
