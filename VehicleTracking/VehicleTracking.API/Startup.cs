@@ -22,11 +22,11 @@ namespace VehicleTracking.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSignalR();
-
             services.AddCors(options => options.AddPolicy("CorsPolicy",
                              builder => { builder.WithOrigins("https://localhost:44323")
                                  .AllowAnyHeader().AllowAnyMethod().AllowCredentials(); }));
 
+            services.AddLogging();
             services.AddMvc();
             services.AddRabbitMq(Configuration);
             services.AddScoped<IEventHandler<StatusChangedEvent>, StatusChangedHandler>();

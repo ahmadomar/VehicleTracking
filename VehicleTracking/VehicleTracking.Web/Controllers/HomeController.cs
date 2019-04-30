@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Collections.Generic;
+using System.Net;
 using VehicleTracking.Models;
 
 namespace VehicleTracking.Web.Controllers
@@ -17,7 +18,6 @@ namespace VehicleTracking.Web.Controllers
 
         public IActionResult Index()
         {
-
             ViewBag.VehicleHub = _iConfig.GetValue<string>("GatewayAPI-SignalRHub");
 
             var vehiclesList = ReadVehicles();

@@ -29,9 +29,7 @@ namespace VehicleTracking.Common.MQ.RabbitMq
             return bus.SubscribeAsync<TEvent>((message, context) =>
                 handler.HandleAsync(message)
             , cfg => cfg
-                 .WithRoutingKey("test_key")
-                 .WithQueue(q => q.WithName(GetQueueName<TEvent>()))
-                 .WithExchange(ex => ex.WithName("test_exchange")));
+                 .WithQueue(q => q.WithName(GetQueueName<TEvent>())));
         }
 
 

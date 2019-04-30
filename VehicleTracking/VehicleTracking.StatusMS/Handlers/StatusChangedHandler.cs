@@ -1,4 +1,5 @@
-﻿using RawRabbit;
+﻿using Microsoft.Extensions.Logging;
+using RawRabbit;
 using System;
 using System.Threading.Tasks;
 using VehicleTracking.Common.MQ.Commands;
@@ -10,15 +11,25 @@ namespace VehicleTracking.StatusMS.Handlers
     {
 
         private readonly IBusClient _busClient;
-        public StatusChangedHandler(IBusClient busClient)
+        private readonly ILogger<StatusChangedHandler> _logger;
+        public StatusChangedHandler(IBusClient busClient,
+            ILogger<StatusChangedHandler> logger)
         {
             _busClient = busClient;
+            _logger = logger;
         }
 
         public async Task HandleAsync(StatusChangeCommand command)
         {
-            Console.WriteLine($"Changing Status for vehicle: {command.VehicleNumber}-{command.RegNr}");
-            await _busClient.PublishAsync(new StatusChangedEvent(command.VehicleNumber, command.RegNr, command.Status));
+            _logger.LogInformation($"Changing Status for vehicle: {command.VehicleNumber}-{command.RegNr}");
+            try
+            {
+                await _busClient.PublishAsync(new StatusChangedEvent(command.VehicleNumber, command.RegNr, command.Status));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+            }
         }
     }
 }

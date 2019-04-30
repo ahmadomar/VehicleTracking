@@ -20,6 +20,7 @@ namespace VehicleTracking.StatusMS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging();
             services.AddMvc();
             services.AddRabbitMq(Configuration);
             services.AddScoped<ICommandHandler<StatusChangeCommand>, StatusChangedHandler>();
