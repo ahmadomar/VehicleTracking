@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VehicleTracking.API.Handlers;
+using VehicleTracking.API.Helpers;
 using VehicleTracking.API.Hubs;
 using VehicleTracking.Common.MQ.Events;
 using VehicleTracking.Common.MQ.RabbitMq;
@@ -31,6 +32,7 @@ namespace VehicleTracking.API
             services.AddRabbitMq(Configuration);
             services.AddScoped<IEventHandler<StatusChangedEvent>, StatusChangedHandler>();
             services.AddScoped<IEventHandler<UpdateVehicleEvent>, VehicleUpdatedHandler>();
+            services.AddScoped<IExternalRequest, ExternalRequest>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
