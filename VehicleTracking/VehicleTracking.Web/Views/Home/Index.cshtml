@@ -10,7 +10,7 @@
 <script>
     var vehicleHubUrl = '@ViewBag.VehicleHub';
     const connection = new signalR.HubConnectionBuilder()
-        .withUrl(vehicleHubUrl)
+        .withUrl(vehicleHubUrl, { skipNegotiation: true, transport: signalR.HttpTransportType.WebSockets })
         .configureLogging(signalR.LogLevel.Information)
         .build();
 

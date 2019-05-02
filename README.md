@@ -74,5 +74,9 @@ I have implemented this solution using Event bus through RabbitMQ and also there
 
 
 ## Setup
+	- Use visual studio or visual studio code.
+	- Or simply run 'Run.ps1' script via PowerShell and it will run all projects.
+	- Simply you can access the web application via 'https://localhost:44323/Home'
 
 ## Online Demo
+	- Not available till now.
