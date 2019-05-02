@@ -74,7 +74,7 @@ namespace VehicleTracking.DataMS.Infrastructure
             return dbSet.Where(where).ToList();
         }
         
-        public T Get(Expression<Func<T,bool>> where)
+        public virtual T Get(Expression<Func<T,bool>> where)
         {
             return dbSet.Where(where).FirstOrDefault<T>();
         }
