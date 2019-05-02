@@ -22,9 +22,10 @@ namespace VehicleTracking.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var allowedOrigins = Configuration["Allowed-Origins"];
             services.AddSignalR();
             services.AddCors(options => options.AddPolicy("CorsPolicy",
-                             builder => { builder.WithOrigins("https://localhost:44323")
+                             builder => { builder.WithOrigins(allowedOrigins)
                                  .AllowAnyHeader().AllowAnyMethod().AllowCredentials(); }));
 
             services.AddLogging();
