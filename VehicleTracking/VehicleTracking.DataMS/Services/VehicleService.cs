@@ -23,8 +23,12 @@ namespace VehicleTracking.DataMS.Services
         public async Task<int> UpdateStatus(string vehicleNumber, string regNr, string status)
         { 
             var existsVehicle = _repo.Get(v => v.VehicleNumber == vehicleNumber && v.RegNr == regNr);
-            existsVehicle.Status = status;
-            return await unitOfWork.CommitAsync();
+            if (existsVehicle != null)
+            {
+                existsVehicle.Status = status;
+                return await unitOfWork.CommitAsync();
+            }
+            return -1;
         }
 
         public IEnumerable<VehicleModel> GetAll()
